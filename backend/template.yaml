@@ -1,0 +1,30 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Local development template for Lambda
+
+Globals:
+  Function:
+    Timeout: 30
+    Environment:
+      Variables:
+        USE_LOCAL_DYNAMODB: "true"
+        DYNAMODB_ENDPOINT: "http://host.docker.internal:8000"
+        AWS_REGION: "us-east-1"
+        TABLE_NAME: "solicitudes-local"
+        JWT_SECRET: "dev-secret-local-only"
+        AWS_ACCESS_KEY_ID: "dummy"
+        AWS_SECRET_ACCESS_KEY: "dummy"
+
+Resources:
+  ApiFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ./
+      Handler: dist/index.handler
+      Runtime: nodejs18.x
+      Events:
+        ApiEvent:
+          Type: HttpApi
+          Properties:
+            Path: /{proxy+}
+            Method: ANY

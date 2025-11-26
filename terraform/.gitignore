@@ -1,0 +1,21 @@
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+.terraform.lock.hcl
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Lambda deployment packages
+*.zip
+
+# Crash log files
+crash.log
+crash.*.log
+
+# Sensitive data
+secrets.auto.tfvars
+terraform.tfvars
